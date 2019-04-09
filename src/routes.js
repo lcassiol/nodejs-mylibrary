@@ -13,5 +13,6 @@ routes.post('/sessions', handle(controllers.SessionController.store))
 routes.use(authMiddleware)
 
 routes.post('/books', handle(controllers.BookController.store))
+routes.get('/books', handle(controllers.BookController.index))
 
 module.exports = routes
