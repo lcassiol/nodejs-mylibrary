@@ -39,4 +39,12 @@ routes.put(
 )
 routes.delete('/books/:id', handle(controllers.BookController.destroy))
 
+/**
+ * User
+ */
+
+routes.get('/users', handle(controllers.UserController.index))
+routes.put('/users/:id', handle(controllers.UserController.update))
+routes.delete('/users/:id', handle(controllers.UserController.destroy))
+
 module.exports = routes

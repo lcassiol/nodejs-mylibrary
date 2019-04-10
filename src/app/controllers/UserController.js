@@ -9,8 +9,44 @@ class UserController {
     }
 
     const user = await User.create(req.body)
+    user.password = undefined
 
     return res.json(user)
+  }
+
+  async index (req, res) {
+    const filters = {}
+
+    if (req.query.name) {
+      filters.name = new RegExp(req.query.name, 'i')
+    }
+
+    if (req.query.email) {
+      filters.email = new RegExp(req.query.email, 'i')
+    }
+
+    const users = await User.paginate(filters, {
+      page: req.query.page || 1,
+      limit: parseInt(req.query.size) || 20,
+      select: '-password',
+      sort: '-createdAt'
+    })
+
+    return res.json(users)
+  }
+
+  async update (req, res) {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    })
+
+    return res.json(user)
+  }
+
+  async destroy (req, res) {
+    await User.findByIdAndDelete(req.params.id)
+
+    return res.send()
   }
 }
 
