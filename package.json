@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.0",
     "mongoose-paginate": "^5.0.3",
-    "require-dir": "^1.2.0"
+    "require-dir": "^1.2.0",
+    "youch": "^2.0.10"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
