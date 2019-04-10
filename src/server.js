@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const validate = require('express-validation')
 const databaseConfig = require('./config/database')
 
 class App {
@@ -12,6 +13,7 @@ class App {
     this.database()
     this.midlewares()
     this.routes()
+    this.exception()
   }
 
   database () {
@@ -27,6 +29,18 @@ class App {
 
   routes () {
     this.express.use(require('./routes'))
+  }
+
+  exception () {
+    this.express.use(async (err, req, res, next) => {
+      if (err instanceof validate.ValidationError) {
+        return res.status(err.status).json(err)
+      }
+
+      return res
+        .status(err.status || 500)
+        .json({ error: 'Internal Server Error' })
+    })
   }
 }
 
