@@ -22,7 +22,7 @@ class BookController {
 
     const books = await Book.paginate(filters, {
       page: req.query.page || 1,
-      limit: req.query.size || 20,
+      limit: parseInt(req.query.size) || 20,
       select: '-createdBy',
       sort: '-createdAt'
     })
