@@ -29,6 +29,20 @@ class BookController {
 
     return res.json(books)
   }
+
+  async update (req, res) {
+    const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    })
+
+    return res.json(book)
+  }
+
+  async destroy (req, res) {
+    await Book.findByIdAndDelete(req.params.id)
+
+    return res.send()
+  }
 }
 
 module.exports = new BookController()
