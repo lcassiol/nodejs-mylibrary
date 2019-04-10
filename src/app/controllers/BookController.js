@@ -43,6 +43,10 @@ class BookController {
 
     return res.send()
   }
+
+  async deleteUserbooks (userId) {
+    await Book.deleteMany({ createdBy: userId })
+  }
 }
 
 module.exports = new BookController()

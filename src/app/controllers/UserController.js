@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const BookController = require('../controllers/BookController')
 
 class UserController {
   async store (req, res) {
@@ -44,7 +45,10 @@ class UserController {
   }
 
   async destroy (req, res) {
-    await User.findByIdAndDelete(req.params.id)
+    const userId = req.params.id
+
+    await User.findByIdAndDelete(userId)
+    await BookController.deleteUserbooks(userId)
 
     return res.send()
   }
